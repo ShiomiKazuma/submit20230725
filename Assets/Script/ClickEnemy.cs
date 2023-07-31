@@ -10,9 +10,10 @@ public class ClickEnemy : MonoBehaviour
     [SerializeField] float _speed = 5.0f;
     //オブジェクトの目的地を保存
     Vector3 _movePosition;
-    // Start is called before the first frame update
-    void Start()
+    ClickEnemyGenerator _owner = null;
+    public void Init(ClickEnemyGenerator owner)
     {
+        _owner = owner;
         _movePosition = RandomMove();
     }
 
@@ -32,5 +33,14 @@ public class ClickEnemy : MonoBehaviour
     {
         Vector3 randomPos = new Vector3(Random.Range(-7, 7), Random.Range(-4, 4), 0);
         return randomPos;
+    }
+
+    public void OnClickObj()
+    {
+        Debug.Log("クリックされた");
+        ClickGameManager clickGameManager = GameObject.Find("GameManager").GetComponent<ClickGameManager>();
+        clickGameManager.AddScore();
+        _owner.CountEnmey(-1);
+        Destroy(gameObject);
     }
 }
