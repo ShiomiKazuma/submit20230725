@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ClickEnemy : MonoBehaviour
+public class ClickEnemy : MonoBehaviour, IPause
 {
     //動かしたいオブジェクトを入れる
     [SerializeField] GameObject _enemy;
@@ -18,7 +18,7 @@ public class ClickEnemy : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         //目的地に到着すると目的地を再設定する
         if(_movePosition == _enemy.transform.position)
@@ -42,5 +42,10 @@ public class ClickEnemy : MonoBehaviour
         clickGameManager.AddScore();
         _owner.CountEnmey(-1);
         Destroy(gameObject);
+    }
+
+    public void Pause()
+    {
+        Time.timeScale = 0;
     }
 }

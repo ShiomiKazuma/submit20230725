@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ClickEnemyGenerator : MonoBehaviour
+public class ClickEnemyGenerator : MonoBehaviour, IPause
 {
     //エネミープレハブを設定
     [SerializeField] ClickEnemy _enemyPrefab;
@@ -18,7 +18,7 @@ public class ClickEnemyGenerator : MonoBehaviour
     {
         _timer = _interval;
     }
-    private void Update()
+    private void FixedUpdate()
     {
         _timer += Time.deltaTime;
         if (_timer > _interval && _enemyCounter < _enemyCount)
@@ -33,5 +33,10 @@ public class ClickEnemyGenerator : MonoBehaviour
     public void CountEnmey(int count)
     {
         _enemyCounter += count;
+    }
+
+    public void Pause()
+    {
+        Time.timeScale = 0;
     }
 }
