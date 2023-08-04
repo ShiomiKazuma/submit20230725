@@ -6,7 +6,8 @@ using UnityEngine;
 public class DoodleJumpPlayer : MonoBehaviour
 {
     Rigidbody2D _rb;
-    [SerializeField] float _moveSpeed = 1.0f;
+    [SerializeField] float _moveSpeed = 10.0f;
+    float _move;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,13 +16,13 @@ public class DoodleJumpPlayer : MonoBehaviour
 
     private void Update()
     {
-        _moveSpeed = Input.GetAxis("Horizontal");
+        _move = Input.GetAxis("Horizontal") * _moveSpeed;
     }
 
     void FixedUpdate()
     {
         Vector2 velocity = _rb.velocity;
-        velocity.x = _moveSpeed;
+        velocity.x = _move;
         _rb.velocity = velocity;
     }
 }
